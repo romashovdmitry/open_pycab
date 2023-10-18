@@ -6,6 +6,6 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
 COPY ./Docker/Django_WSGI/requirements.txt /app
-COPY ./open_pycab /app
+COPY ./app /app
 
 RUN pip install -r requirements.txt

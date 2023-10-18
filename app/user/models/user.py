@@ -18,7 +18,7 @@ class User(AbstractUser):
         verbose_name = "User"
         verbose_name_plural = "Users"
         db_table = "users"
-        ordering = ['-created_at']
+        ordering = ['-created']
         indexes = [
             models.Index(fields=['username'], name='username_index')
             ]
@@ -45,6 +45,7 @@ class User(AbstractUser):
     )
 
     password = models.CharField(
+        max_length=4096,
         validators=[
             MinLengthValidator(
                 limit_value=7,
