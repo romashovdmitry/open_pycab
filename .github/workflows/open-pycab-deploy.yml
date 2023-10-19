@@ -34,3 +34,24 @@ jobs:
         file: ./Docker/Nginx/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/image-pycab-nginx
+
+    - name: Copy Docker-yml file
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: ${{ OPEN_PYCAB_HOST }}
+        username: root
+        password: ${{ OPEN_PYCAB_MACHINE_ROOT_PASSWORD }}
+        port: 22
+        source: "docker-compose.yml"
+        target: /home/open_pycab
+        
+    - name: Download Docker-yml file
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ OPEN_PYCAB_HOST }}
+        username: root
+        password: ${{ OPEN_PYCAB_MACHINE_ROOT_PASSWORD }}
+        port: 22
+        script: |
+          cd /home/open_pycab
+          ls -all
