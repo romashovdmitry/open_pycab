@@ -25,7 +25,7 @@ jobs:
         context: .
         file: ./Docker/Django_WSGI/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/open-pycab-start
+        tags: ${{ secrets.DOCKER_USERNAME }}/image-django-wsgi
       
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
@@ -33,4 +33,4 @@ jobs:
         context: .
         file: ./Docker/Nginx/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/open-pycab-start
+        tags: ${{ secrets.DOCKER_USERNAME }}/image-pycab-nginx

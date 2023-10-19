@@ -4,9 +4,10 @@ services:
     django-wsgi:
         env_file:
             - .env
-        build:
-            context: .
-            dockerfile: ./Docker/Django_WSGI/Dockerfile
+#        build:
+#            context: .
+#            dockerfile: ./Docker/Django_WSGI/Dockerfile
+        image: romashovzimadmitry/open-pycab-start
         container_name: django-wsgi
         command: > 
             sh -c "python manage.py makemigrations &&
@@ -23,9 +24,10 @@ services:
             - pycab-app-network
 
     pycab-nginx:
-        build: 
-            context: .
-            dockerfile: ./Docker/Nginx/Dockerfile
+#        build: 
+#            context: .
+#            dockerfile: ./Docker/Nginx/Dockerfile
+        image: romashovzimadmitry/open-pycab-start
         ports:
           - "8080:80"
         networks:
