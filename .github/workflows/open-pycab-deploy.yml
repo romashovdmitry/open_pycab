@@ -21,4 +21,5 @@ jobs:
         docker build -t open-pycab .
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         docker tag open-pycab $DOCKER_USERNAME/open-pycab
-        docker push $DOCKER_USERNAME/my-django-app
+        docker push $DOCKER_USERNAME/open-pycab
+
