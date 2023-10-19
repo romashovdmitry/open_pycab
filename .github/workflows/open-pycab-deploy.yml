@@ -54,4 +54,4 @@ jobs:
         port: 22
         script: |
           cd /home/open_pycab
-          ls -all
+          docker compose up --build -d
