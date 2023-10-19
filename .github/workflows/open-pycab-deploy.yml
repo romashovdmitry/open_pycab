@@ -20,7 +20,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and push Docker image
-      uses: docker/build-puth-action@v5
+      uses: docker/build-push-action@v5
       with:
         context: .
         file: ./Docker/Django_WSGI/Dockerfile
@@ -28,7 +28,7 @@ jobs:
         tags: ${{ secrets.DOCKER_USERNAME }}/open-pycab-start
       
     - name: Build and push Docker image
-      uses: docker/build-puth-action@v5
+      uses: docker/build-push-action@v5
       with:
         context: .
         file: ./Docker/Nginx/Dockerfile
