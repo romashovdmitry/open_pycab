@@ -1,2 +1,9 @@
+# python files
 *.pyc
+
+# env data
 .env
+
+# virtual environment
+/pycab_venv
+launch.json

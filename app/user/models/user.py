@@ -12,7 +12,7 @@ from django.core.exceptions import ValidationError
 class User(AbstractUser):
     ''' database model of user '''
     REQUIRED_FIELDS = []
-    first_name = last_name = is_superuser = is_staff = None
+    first_name = last_name = None
 
     class Meta:
         verbose_name = "User"
@@ -44,43 +44,10 @@ class User(AbstractUser):
         error_messages={"unique": "Email exists"}
     )
 
-    password = models.CharField(
-        max_length=4096,
-        validators=[
-            MinLengthValidator(
-                limit_value=7,
-                message="Password must be at least 7 characters long."
-            )
-        ]
-    )
+    password = models.CharField(max_length=4096)
 
     created = models.DateTimeField(auto_now_add=True, blank=True, verbose_name="Created")
     updated = models.DateTimeField(auto_now=True, verbose_name="Updated")
-
-    def validate_password(self, password):
-        ''' проверки для пароля '''
-        if not any(char.isdigit() for char in password):
-            raise ValidationError(
-                "Password must contain at least one digit.",
-                code="password_no_digit"
-            )
-
-        if not any(char.isupper() for char in password):
-            raise ValidationError(
-                "Password must contain at least one uppercase letter.",
-                code="password_no_uppercase"
-            )
-
-        if not any(char.islower() for char in password):
-            raise ValidationError(
-                "Password must contain at least one lowercase letter.",
-                code="password_no_lowercase"
-            )
-
-    def save(self, *args, **kwargs):
-        ''' вызов метода  '''
-        self.validate_password(self.password)
-        super().save(*args, **kwargs)        
 
     def __str__(self):
         return f"{self.username}"
