@@ -11,12 +11,26 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+
+    - name: login dockerhub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and push Docker image
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: |
-        docker-compose build
-        docker-compose push
+      uses: docker/build-puth-action@v5
+      with:
+        context: .
+        file: ./Docker/Django_WSGI/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/open-pycab-start
+      
+    - name: Build and push Docker image
+      uses: docker/build-puth-action@v5
+      with:
+        context: .
+        file: ./Docker/Nginx/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/open-pycab-start
