@@ -54,3 +54,21 @@ class UserSerializer(serializers.ModelSerializer):
                 code="password_length"
             )
         return password
+    
+    def validate_username(self, username):
+        ''' проверка уникальности username '''
+        if User.objects.filter(username=username).exists():
+            raise serializers.ValidationError(
+                "Username already exists",
+                code='username_exists'
+            )
+        return username
+
+    def validate_email(self, email):
+        ''' проверка уникальности username '''
+        if User.objects.filter(email=email).exists():
+            raise serializers.ValidationError(
+                "email already exists",
+                code='email_exists'
+            )
+        return email

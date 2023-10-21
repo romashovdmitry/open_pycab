@@ -1,1 +1,3 @@
 docker exec -it open_pycab_database_container psql -U open_pycab_user -d open_pycab_database
+
+docker compose -f on_local.yml up --build

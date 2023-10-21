@@ -7,3 +7,6 @@
 # virtual environment
 /pycab_venv
 launch.json
+
+# etc txt
+typical_commands.txt
