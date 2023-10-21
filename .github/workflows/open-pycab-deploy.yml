@@ -55,5 +55,5 @@ jobs:
         port: 22
         script: |
           cd /home/open_pycab
+          docker compose pull
           docker compose up --build -d
-          docker compose restart django-wsgi
