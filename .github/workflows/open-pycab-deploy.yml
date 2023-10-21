@@ -42,7 +42,7 @@ jobs:
         username: root
         password: ${{ secrets.OPEN_PYCAB_MACHINE_ROOT_PASSWORD }}
         port: 22
-        source: "docker-compose.yml,Docker"
+        source: "production.yml,Docker"
         target: /home/open_pycab
 
 
@@ -56,5 +56,5 @@ jobs:
         script: |
           cd /home/open_pycab
           docker compose pull
-          docker compose -f production up --build -d
+          docker compose -f production.yml up --build -d
           docker image prune
