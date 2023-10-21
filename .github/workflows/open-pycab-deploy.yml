@@ -56,4 +56,4 @@ jobs:
         script: |
           cd /home/open_pycab
           docker compose up --build -d
-          docker-compose restart django-wsgi
+          docker compose restart django-wsgi
