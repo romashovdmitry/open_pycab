@@ -57,3 +57,4 @@ jobs:
           cd /home/open_pycab
           docker compose pull
           docker compose up --build -d
+          docker image prune
