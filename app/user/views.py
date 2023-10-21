@@ -18,7 +18,8 @@ class UserActions(ModelViewSet):
     ''' class for creating and updating users '''
     http_method_names = ['post', 'update']
     serializer_class = UserSerializer
-
+    lookup_field = 'id'
+    
     def create(self, request, *args, **kwargs) -> Response:
         ''' creating new user '''
         serializer = self.serializer_class(data=request.data)
