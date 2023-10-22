@@ -46,4 +46,8 @@ class UserActions(ViewSet):
     @action(detail=False, methods=['post'], url_path="login_user")
     def login_user(self, request) -> Response:
         ''' login user '''
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            return Response(status=HTTP_200_OK, data='huy')
         return Response(status=HTTP_200_OK)
+
