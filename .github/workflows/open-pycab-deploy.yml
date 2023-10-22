@@ -55,6 +55,6 @@ jobs:
         port: 22
         script: |
           cd /home/open_pycab
-          docker compose pull
+          docker compose pull -f production.yml
           docker compose -f production.yml up --build -d
           docker image prune --force
