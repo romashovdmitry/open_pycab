@@ -1,9 +1,6 @@
 # Dajango imports
 from django.contrib import admin
-from django.urls import path
-
-# import routing
-from user.router import router
+from django.urls import path, include
 
 # JWT imports
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
@@ -16,9 +13,11 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 
 urlpatterns = [
+    # admin
     path("admin/", admin.site.urls),
+    # JWT
     path('api/v1/token/', CustomTokenObtainPairView.as_view()),
     path('api/v1/token/refresh/', TokenRefreshView.as_view()),
+    # user create, login, logout
+    path('api/v1/user/', include("user.urls"))
 ]
-
-urlpatterns += router.urls
