@@ -26,7 +26,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "rest_framework",
     "open_pycab",
-    "user"
+    "user",
+    "bot"
 ]
 
 MIDDLEWARE = [
@@ -171,3 +172,5 @@ SIMPLE_JWT = {
     'AUTH_COOKIE_SECURE': True,
     'AUTH_COOKIE_HTTP_ONLY': True,
 }
+
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
