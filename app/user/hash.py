@@ -10,7 +10,6 @@ load_dotenv()
 def hashing(password, user_id):
     ''' Foo hashs password entered by user '''
 
-    print('come here')
     user_id = str(user_id)
     password_start = os.getenv('PASSWORD_START')
     password_finish = os.getenv('PASSWORD_FINISH')
@@ -24,7 +23,5 @@ def hashing(password, user_id):
     password = password.encode('utf-8')
     hashed_password = hashlib.pbkdf2_hmac(
             hash_name=HASH_ALGO, password=password, salt=salt, iterations=100000)
-    print(hashed_password)
-    print(hashed_password.hex())
 
     return (hashed_password.hex())

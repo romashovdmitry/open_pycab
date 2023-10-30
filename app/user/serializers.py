@@ -133,16 +133,11 @@ class LoginUserSerializer(serializers.Serializer):
         user = User.objects.filter(
             Q(username=email_or_username) | Q(email=email_or_username)
         ).first()
-        print('huy1')
-        print(user.id)
-        print(type(user.id))
         if user:
-            print('come on my face')
             if hashing(
                 password=password,
                 user_id=user.id
             ) == user.password:
-                print('DO RETURN ')
                 return {"user": user}
             raise serializers.ValidationError("Invalid password")
         raise serializers.ValidationError("There is no user with this email or username")

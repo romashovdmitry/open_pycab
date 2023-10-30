@@ -58,11 +58,11 @@ class UserActions(ViewSet):
         ''' login user '''
         # LoginUserSerializer
         serializer = self.get_serializer_class()
+        print('zalupa')
         serializer = serializer(data=request.data)
+        print('huy')
         if serializer.is_valid():
             validated_data = serializer.validated_data
-            print('go fire1')
-            print(validated_data)
             user = validated_data['password']['user']
             refresh_token = RefreshToken.for_user(user)
             response_data = {
