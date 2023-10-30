@@ -6,6 +6,6 @@ from user.views import UserActions
 
 
 urlpatterns = [
-    path('registrate_user/', UserActions.as_view({'post': 'registrate_user'}), name='registrate_user'),
+    path('create_user/', UserActions.as_view({'post': 'create_user'}), name='create_user'),
     path('login_user/', UserActions.as_view({'post': 'login_user'}), name='login_user')
 ]

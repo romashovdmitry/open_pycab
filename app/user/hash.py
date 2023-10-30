@@ -25,4 +25,6 @@ def hashing(password, user_id):
     hashed_password = hashlib.pbkdf2_hmac(
             hash_name=HASH_ALGO, password=password, salt=salt, iterations=100000)
     print(hashed_password)
+    print(hashed_password.hex())
+
     return (hashed_password.hex())

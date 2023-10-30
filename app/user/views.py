@@ -5,11 +5,14 @@ from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_RE
 from rest_framework.decorators import action
 
 # import serializers
-from user.serializers import UserSerializer
+from user.serializers import CreateUserSerializer, LoginUserSerializer
 
 # JWT imports
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
+
+# import models
+from user.models import User
 
 # import custom foos
 from user.hash import hashing
@@ -18,13 +21,20 @@ from user.hash import hashing
 class UserActions(ViewSet):
     ''' class for creating and updating users '''
     http_method_names = ['post', 'update']
-    serializer_class = UserSerializer
     lookup_field = 'id'
-    
-    @action(detail=False, methods=['post'], url_path="registrate_user")
-    def registrate_user(self, request) -> Response:
+
+    def get_serializer_class(self):
+        ''' define serializer for class '''
+        if self.action == 'create_user':
+            return CreateUserSerializer
+        elif self.action == 'login_user':
+            return LoginUserSerializer
+
+    @action(detail=False, methods=['post'], url_path="create_user")
+    def create_user(self, request) -> Response:
         ''' creating new user '''
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.get_serializer_class()
+        serializer = serializer(data=request.data)
         if serializer.is_valid():
             validated_data = serializer.validated_data
             instance = serializer.save()
@@ -46,10 +56,18 @@ class UserActions(ViewSet):
     @action(detail=False, methods=['post'], url_path="login_user")
     def login_user(self, request) -> Response:
         ''' login user '''
-        serializer = self.serializer_class(data=request.data)
+        # LoginUserSerializer
+        serializer = self.get_serializer_class()
+        serializer = serializer(data=request.data)
         if serializer.is_valid():
-            return Response(status=HTTP_200_OK, data='huy')
-        return Response(status=HTTP_200_OK)
-
-
-''' check up '''
+            validated_data = serializer.validated_data
+            print('go fire1')
+            print(validated_data)
+            user = validated_data['password']['user']
+            refresh_token = RefreshToken.for_user(user)
+            response_data = {
+                'access_token': str(refresh_token.access_token),
+                'refresh_token': str(refresh_token)
+            }
+            return Response(response_data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
