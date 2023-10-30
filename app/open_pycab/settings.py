@@ -8,7 +8,10 @@ from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
-DEBUG = False
+
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True')
+
+
 ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
