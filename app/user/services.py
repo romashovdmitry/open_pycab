@@ -8,9 +8,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from user.models.user import User
 
 
-class JWT_actions:
+class JWTActions:
     ''' class for creating JWT and set cookies on response '''
-    
+
     def __init__(
             self,
             response: Response = None,

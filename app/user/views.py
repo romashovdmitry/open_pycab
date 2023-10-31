@@ -12,7 +12,7 @@ from user.models import User
 
 # import custom foos, classes
 from user.hash import hashing
-from user.services import JWT_actions
+from user.services import JWTActions
 
 class UserActions(ViewSet):
     ''' class for creating and updating users '''
@@ -41,7 +41,7 @@ class UserActions(ViewSet):
             )
             instance.save()
             return_response = Response(status=HTTP_201_CREATED)
-            return JWT_actions(
+            return JWTActions(
                 response=return_response,
                 instance=instance                
             ).set_cookies_on_response()
@@ -60,7 +60,7 @@ class UserActions(ViewSet):
             validated_data = serializer.validated_data
             user = validated_data['password']['user']
             return_response = Response(status=HTTP_200_OK)
-            return JWT_actions(
+            return JWTActions(
                 response=return_response,
                 instance=user
             ).set_cookies_on_response()
