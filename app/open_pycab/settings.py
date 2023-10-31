@@ -129,6 +129,10 @@ REST_FRAMEWORK = {
     }
 }
 
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+
+
+# JWT section
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=10),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
@@ -166,13 +170,5 @@ SIMPLE_JWT = {
     "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
     "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
-    "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
-
-    'AUTH_COOKIE': 'my_auth_cookie',
-    'AUTH_COOKIE_SECURE': True,
-    'AUTH_COOKIE_HTTP_ONLY': True,
+    "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer"
 }
-
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-
-SESSION_COOKIE_HTTPONLY = True

@@ -7,16 +7,12 @@ from rest_framework.decorators import action
 # import serializers
 from user.serializers import CreateUserSerializer, LoginUserSerializer
 
-# JWT imports
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.views import TokenObtainPairView
-
 # import models
 from user.models import User
 
-# import custom foos
+# import custom foos, classes
 from user.hash import hashing
-
+from user.services import JWT_actions
 
 class UserActions(ViewSet):
     ''' class for creating and updating users '''
@@ -35,6 +31,7 @@ class UserActions(ViewSet):
         ''' creating new user '''
         serializer = self.get_serializer_class()
         serializer = serializer(data=request.data)
+
         if serializer.is_valid():
             validated_data = serializer.validated_data
             instance = serializer.save()
@@ -43,29 +40,29 @@ class UserActions(ViewSet):
                 instance.id
             )
             instance.save()
-            refresh_token = RefreshToken.for_user(instance)
-            response_data = {
-                "user": serializer.validated_data,
-                'access_token': str(refresh_token.access_token),
-                'refresh_token': str(refresh_token)
-            }
-            return Response(response_data, status=HTTP_201_CREATED)
+            return_response = Response(status=HTTP_201_CREATED)
+            return JWT_actions(
+                response=return_response,
+                instance=instance                
+            ).set_cookies_on_response()
+
         else:
+
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
         
     @action(detail=False, methods=['post'], url_path="login_user")
     def login_user(self, request) -> Response:
         ''' login user '''
-        # LoginUserSerializer
         serializer = self.get_serializer_class()
         serializer = serializer(data=request.data)
+
         if serializer.is_valid():
             validated_data = serializer.validated_data
             user = validated_data['password']['user']
-            refresh_token = RefreshToken.for_user(user)
-            response_data = {
-                'access_token': str(refresh_token.access_token),
-                'refresh_token': str(refresh_token)
-            }
-            return Response(response_data, status=HTTP_201_CREATED)
+            return_response = Response(status=HTTP_200_OK)
+            return JWT_actions(
+                response=return_response,
+                instance=user
+            ).set_cookies_on_response()
+
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
