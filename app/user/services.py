@@ -39,12 +39,12 @@ class JWT_actions:
             }
         ]
         [
-                self.response.set_cookie(
-                    obj["cookie_key"],
-                    obj["cookie_value"],
-                    httponly=True,
-                    secure=True
-                )
-                for obj in response_data
+            self.response.set_cookie(
+                obj["cookie_key"],
+                obj["cookie_value"],
+                httponly=True,
+                secure=True
+            )
+            for obj in response_data
         ]
         return self.response
