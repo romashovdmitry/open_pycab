@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "open_pycab",
     "user",
-    "bot"
+    "bot",
+    "cards"
 ]
 
 MIDDLEWARE = [
