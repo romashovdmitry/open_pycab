@@ -3,6 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
 
 # import serializers
 from user.serializers import CreateUserSerializer, LoginUserSerializer
@@ -14,10 +15,12 @@ from user.models import User
 from user.hash import hashing
 from user.services import JWTActions
 
+
 class UserActions(ViewSet):
     ''' class for creating and updating users '''
     http_method_names = ['post', 'update']
     lookup_field = 'id'
+    permission_classes = [AllowAny]
 
     def get_serializer_class(self):
         ''' define serializer for class '''

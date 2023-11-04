@@ -21,16 +21,43 @@ class VocabCards(models.Model):
         indexes = [models.Index(fields=["id"], name="vocab_id_index")]
 
     # main info fields for storing data 
-    id = models.UUIDField(default=uuid4, primary_key=True, editable=False, db_column="id")
-    text = models.CharField(max_length=256, null=True, editable=True, unique=False, db_column="word")
-    text_definition = models.CharField(max_length=4096, null=True, editable=True, unique=False)
+    id = models.UUIDField(
+        default=uuid4,
+        primary_key=True,
+        editable=False,
+        db_column="id"
+    )
+    text = models.CharField(
+        max_length=256,
+        null=True,
+        editable=True,
+        unique=False,
+        db_column="word"
+    )
+    text_definition = models.CharField(
+        max_length=4096,
+        null=True,
+        editable=True,
+        unique=False
+    )
     # datetime fields to store date and time of create and update
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # additional info for future analytic
-    points = models.DecimalField(decimal_places=10, max_digits=11, editable=True)
-    iterations = models.PositiveIntegerField(default=0, null=True)
-    status = models.CharField(null=True, max_length=32)
+    points = models.DecimalField(
+        decimal_places=10,
+        max_digits=11,
+        editable=True,
+        default=0
+    )
+    iterations = models.PositiveIntegerField(
+        default=0,
+        null=True
+    )
+    status = models.CharField(
+        null=True,
+        max_length=32
+    )
 
     def save(self, *args, **kwargs):
         ''' redefine logic of saving for counting iterations '''
