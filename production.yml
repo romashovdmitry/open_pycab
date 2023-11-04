@@ -28,6 +28,8 @@ services:
             - django-wsgi
         volumes:
             - .:/app
+            - ${SSL_CERTIFICATE}:/etc/nginx/certs/cert.pem:ro
+            - ${SSL_CERTIFICATE_KEY}:/etc/nginx/certs/key.pem:ro
 
     open_pycab_database_container:
         image: postgres:16.0
