@@ -1,3 +1,7 @@
+# Python imports
+from datetime import datetime, timedelta
+import pytz
+
 # Django imports
 from rest_framework.response import Response
 
@@ -24,26 +28,41 @@ class JWTActions:
         '''
         self.response = response
         self.instance = instance
+        time_zone = pytz.UTC
+        self.now = time_zone.localize(datetime.utcnow())
 
     def set_cookies_on_response(self):
         ''' set up cookies on response'''
+
         refresh_token = RefreshToken.for_user(self.instance)
         response_data = [
             {
                 "cookie_key": "access_token",
-                "cookie_value": str(refresh_token.access_token)
+                "cookie_value": str(refresh_token.access_token),
+                "expires_at": self.now + timedelta(minutes=15),
+                "secure_and_httponly": True,
+
             },
             {
-                "cookie_key":"refresh_token",
-                "cookie_value": str(refresh_token)
+                "cookie_key": "refresh_token",
+                "cookie_value": str(refresh_token),
+                "expires_at": self.now + timedelta(days=7),
+                "secure_and_httponly": True,
+            },
+            {
+                "cookie_key": "signed_in",
+                "cookie_value": True,
+                "expires_at": self.now + timedelta(days=7),
+                "secure_and_httponly": True,
             }
         ]
         [
             self.response.set_cookie(
                 obj["cookie_key"],
                 obj["cookie_value"],
-                httponly=True,
-                secure=True,
+                expires=obj["expires_at"],
+                secure=obj["secure_and_httponly"],
+                httponly=obj["secure_and_httponly"],
                 samesite="None"
             )
             for obj in response_data
