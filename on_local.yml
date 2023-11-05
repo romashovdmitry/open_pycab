@@ -28,6 +28,7 @@ services:
             dockerfile: ./Docker/Nginx/Dockerfile
         ports:
           - "8080:80"
+#          - "443:443" uncomment on production
         networks:
           - pycab-app-network
         depends_on:
