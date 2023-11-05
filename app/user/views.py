@@ -15,6 +15,9 @@ from user.models import User
 from user.hash import hashing
 from user.services import JWTActions
 
+# import constants
+from open_pycab.settings import HTTP_HEADERS
+
 
 class UserActions(ViewSet):
     ''' class for creating and updating users '''
@@ -45,9 +48,9 @@ class UserActions(ViewSet):
             instance.save()
             return_response = Response(
                 status=HTTP_201_CREATED,
-                headers={
-                    "Access-Control-Allow-Origin": "https://localhost:5173",
-                    "Access-Control-Allow-Credentials": True
+                headers=HTTP_HEADERS,
+                data={
+                    "username": serializer.validated_data["username"]
                 }
             )
             return JWTActions(
@@ -68,7 +71,13 @@ class UserActions(ViewSet):
         if serializer.is_valid():
             validated_data = serializer.validated_data
             user = validated_data['password']['user']
-            return_response = Response(status=HTTP_200_OK)
+            return_response = Response(
+                status=HTTP_200_OK,
+                headers=HTTP_HEADERS,
+                data={
+                    "username": serializer.validated_data["password"]["user"].username
+                }
+            )
             return JWTActions(
                 response=return_response,
                 instance=user

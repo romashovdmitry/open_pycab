@@ -181,3 +181,8 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SAMESITE = 'None'
 CORS_ALLOW_CREDENTIALS = True
+
+HTTP_HEADERS={
+    "Access-Control-Allow-Origin": "https://localhost:5173",
+    "Access-Control-Allow-Credentials": True
+}

@@ -6,6 +6,7 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from rest_framework.throttling import UserRateThrottle
 
+
 class CustomTokenObtainPairView(TokenObtainPairView):
     ''' to get both JWT tokens with limitation '''
     throttle_classes = [UserRateThrottle]
