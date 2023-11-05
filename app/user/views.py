@@ -43,7 +43,13 @@ class UserActions(ViewSet):
                 instance.id
             )
             instance.save()
-            return_response = Response(status=HTTP_201_CREATED)
+            return_response = Response(
+                status=HTTP_201_CREATED,
+                headers={
+                    "Access-Control-Allow-Origin": "https://localhost:5173",
+                    "Access-Control-Allow-Credentials": True
+                }
+            )
             return JWTActions(
                 response=return_response,
                 instance=instance                
