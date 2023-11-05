@@ -3,6 +3,7 @@ from uuid import uuid4
 
 # Django imports
 from django.db import models
+from django.core.exceptions import NON_FIELD_ERRORS
 
 
 class VocabCards(models.Model):
@@ -18,14 +19,14 @@ class VocabCards(models.Model):
         ordering = ["-created_at"]
         unique_together = [["text", "text_definition"]]
         verbose_name = "vocab_cards"
-        indexes = [models.Index(fields=["id"], name="vocab_id_index")]
+        indexes = [models.Index(fields=["card_id"], name="vocab_id_index")]
 
     # main info fields for storing data 
-    id = models.UUIDField(
+    card_id = models.UUIDField(
         default=uuid4,
         primary_key=True,
         editable=False,
-        db_column="id"
+        db_column="card_id"
     )
     text = models.CharField(
         max_length=256,
