@@ -136,7 +136,7 @@ TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 # JWT section
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=10),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=15),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
@@ -175,3 +175,5 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer"
 }
 
+
+SESSION_COOKIE_HTTPONLY = True
