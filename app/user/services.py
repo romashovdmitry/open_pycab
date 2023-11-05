@@ -44,7 +44,7 @@ class JWTActions:
                 obj["cookie_value"],
                 httponly=True,
                 secure=True,
-                samesite=None
+                samesite="None"
             )
             for obj in response_data
         ]
