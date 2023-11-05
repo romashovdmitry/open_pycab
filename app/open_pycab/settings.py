@@ -175,4 +175,3 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer"
 }
 
-SECURE_SSL_REDIRECT = True
