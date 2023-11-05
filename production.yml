@@ -20,6 +20,8 @@ services:
 
     pycab-nginx:
         image: romashovzimadmitry/image-pycab-nginx
+        env_file:
+          - .env
         ports:
           - "8080:80"
         networks:
