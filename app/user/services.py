@@ -52,7 +52,7 @@ class JWTActions:
             {
                 "cookie_key": "signed_in",
                 "cookie_value": True,
-                "expires_at": self.now + timedelta(days=7),
+                "expires_at": self.now + timedelta(minutes=15),
                 "secure_and_httponly": True,
             }
         ]
@@ -63,7 +63,8 @@ class JWTActions:
                 expires=obj["expires_at"],
                 secure=obj["secure_and_httponly"],
                 httponly=obj["secure_and_httponly"],
-                samesite="None"
+                samesite="None",
+                path="/api/v1/token/refresh/" if obj["cookie_key"] == "signed_in" else None
             )
             for obj in response_data
         ]
