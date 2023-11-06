@@ -74,7 +74,3 @@ class Cards(ModelViewSet):
                 detail=serializer.errors,
                 code="validation_error"
             )
-
-'''
-
-'''

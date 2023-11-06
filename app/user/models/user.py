@@ -1,6 +1,8 @@
 # Python imports
 import uuid
 from django.contrib.auth.validators import UnicodeUsernameValidator
+from datetime import datetime, timedelta
+import pytz
 
 # Django imports
 from django.db import models
@@ -8,6 +10,11 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
 
+# import custom foos, classes
+from user.hash import hashing
+
+# import constants
+from user.constants import UserTelegramStatus
 
 class User(AbstractUser):
     ''' database model of user '''
@@ -48,6 +55,25 @@ class User(AbstractUser):
 
     created = models.DateTimeField(auto_now_add=True, blank=True, verbose_name="Created")
     updated = models.DateTimeField(auto_now=True, verbose_name="Updated")
+
+    telegram_password = models.CharField(max_length=32, null=True, default=None)
+    telegram_password_expires = models.DateTimeField(default=None, null=True)
+
+    def set_telegram_password_expires(self):
+        ''' set time limit for actuality of telegram_password '''
+        time_zone = pytz.UTC
+        now = time_zone.localize(datetime.utcnow())
+        self.telegram_password_expires = now + timedelta(minutes=5)
+        self.save()
+
+    def set_telegram_password(self):
+        ''' generate and set random telegram_password '''
+        self.telegram_password = hashing(
+            user_id=self.id,
+            password=self.username
+        )[:31]
+        self.set_telegram_password_expires()
+        self.save()
 
     def __str__(self):
         return f"{self.username}"

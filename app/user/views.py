@@ -84,3 +84,24 @@ class UserActions(ViewSet):
             ).set_cookies_on_response()
 
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['post'], url_path="create_user")
+    def generate_telegram_password(self, request) -> Response:
+        ''' registrate telegram id of user '''
+        user = User.objects.get(request.data["user_id"])
+        user.set_telegram_password()
+        return Response(
+            data={"telegram_password": user.telegram_password},
+            status=HTTP_201_CREATED
+        )
+    
+'''
+    @action(detail=False, methods=['post'], url_path="create_user")
+    def check_telegram_password(self, request) -> Response:
+        user = User.objects.get(request.data["user_id"])
+        if user.telegram_password == request.data["telegram_password"]
+        return Response(
+            data={"telegram_password": user.telegram_password},
+            status=HTTP_201_CREATED
+        )
+'''
