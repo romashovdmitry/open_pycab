@@ -64,7 +64,7 @@ class JWTActions:
                 secure=obj["secure_and_httponly"],
                 httponly=obj["secure_and_httponly"],
                 samesite="None",
-                path="/api/v1/token/refresh/" if obj["cookie_key"] == "signed_in" else None
+                path="/api/v1/token/refresh/" if obj["cookie_key"] == "signed_in" else '/'
             )
             for obj in response_data
         ]
