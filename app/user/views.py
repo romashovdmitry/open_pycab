@@ -85,7 +85,7 @@ class UserActions(ViewSet):
 
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=['post'], url_path="create_user")
+    @action(detail=False, methods=['post'], url_path="generate_telegram_password")
     def generate_telegram_password(self, request) -> Response:
         ''' registrate telegram id of user '''
         user = User.objects.get(request.data["user_id"])
