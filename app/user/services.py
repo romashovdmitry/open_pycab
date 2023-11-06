@@ -58,7 +58,8 @@ class JWTActions:
                 "path": "/"
             }
         ]
-        [
+
+        for obj in response_data:
             self.response.set_cookie(
                 obj["cookie_key"],
                 obj["cookie_value"],
@@ -68,6 +69,4 @@ class JWTActions:
                 samesite="None",
                 path=obj["path"]
             )
-            for obj in response_data
-        ]
         return self.response
