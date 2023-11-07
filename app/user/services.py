@@ -39,21 +39,21 @@ class JWTActions:
             {
                 "cookie_key": "access_token",
                 "cookie_value": str(refresh_token.access_token),
-                "expires_at": self.now + timedelta(minutes=15),
+                "max_age": 600,
                 "secure_and_httponly": True,
                 "path": "/"
             },
             {
                 "cookie_key": "refresh_token",
                 "cookie_value": str(refresh_token),
-                "expires_at": self.now + timedelta(days=7),
+                "max_age": 60*60*24*7,
                 "secure_and_httponly": True,
                 "path": "/api/v1/token/refresh/"
             },
             {
                 "cookie_key": "signed_in",
                 "cookie_value": True,
-                "expires_at": self.now + timedelta(minutes=15),
+                "max_age": 600,
                 "secure_and_httponly": True,
                 "path": "/"
             }
@@ -63,10 +63,11 @@ class JWTActions:
             self.response.set_cookie(
                 obj["cookie_key"],
                 obj["cookie_value"],
-                expires=obj["expires_at"],
+                max_age=obj["max_age"],
                 secure=obj["secure_and_httponly"],
                 httponly=obj["secure_and_httponly"],
                 samesite="None",
                 path=obj["path"]
             )
+
         return self.response
