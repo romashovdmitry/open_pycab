@@ -3,8 +3,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 # JWT imports
-from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
-from rest_framework.throttling import UserRateThrottle
+from rest_framework_simplejwt.views import TokenRefreshView
+# from rest_framework.throttling import UserRateThrottle
 
 
 #class CustomTokenObtainPairView(TokenObtainPairView):
