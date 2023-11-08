@@ -48,7 +48,7 @@ class JWTActions:
                 "cookie_value": str(refresh_token),
                 "max_age": 60*60*24*7,
                 "secure_and_httponly": True,
-                "path": "/api/v1/user/create_user/"
+                "path": "api/v1/user/"
             },
             {
                 "cookie_key": "signed_in",
