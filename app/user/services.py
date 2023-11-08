@@ -39,7 +39,7 @@ class JWTActions:
             {
                 "cookie_key": "access_token",
                 "cookie_value": str(refresh_token.access_token),
-                "max_age": 60,
+                "max_age": 900,
                 "secure_and_httponly": True,
                 "path": "/"
             },
@@ -48,12 +48,12 @@ class JWTActions:
                 "cookie_value": str(refresh_token),
                 "max_age": 60*60*24*7,
                 "secure_and_httponly": True,
-                "path": "/api/v1/token/refresh/"
+                "path": "/api/v1/user/create_user/"
             },
             {
                 "cookie_key": "signed_in",
                 "cookie_value": True,
-                "max_age": 60,
+                "max_age": 900,
                 "secure_and_httponly": True,
                 "path": "/"
             }
@@ -69,5 +69,5 @@ class JWTActions:
                 samesite="None",
                 path=obj["path"]
             )
-
+        print(self.response.cookies)
         return self.response
