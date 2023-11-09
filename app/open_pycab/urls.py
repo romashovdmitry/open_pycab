@@ -14,8 +14,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # JWT
     # user create, login, logout, 
-    path('api/v1/user/', include("users.urls")),
-    path('api/v1/telegram/', include("users.urls")),
+    path('api/v1/user/', include("user.urls")),
+#    path('api/v1/telegram/', include("user.urls")),
     # cards create, update, delete
     path('api/v1/text/', include("cards.urls"))
 ]
