@@ -39,7 +39,7 @@ class JWTActions:
             {
                 "cookie_key": "access_token",
                 "cookie_value": str(refresh_token.access_token),
-                "max_age": 900,
+                "max_age": 60*60*24,
                 "secure_and_httponly": True,
                 "path": "/"
             },
@@ -53,7 +53,7 @@ class JWTActions:
             {
                 "cookie_key": "signed_in",
                 "cookie_value": True,
-                "max_age": 900,
+                "max_age": 60*60*24,
                 "secure_and_httponly": True,
                 "path": "/"
             }

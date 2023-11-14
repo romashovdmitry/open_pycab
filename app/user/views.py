@@ -1,5 +1,9 @@
+# Python imports
+from sys import stdout
+
 # DRF imports
 from rest_framework.viewsets import ViewSet
+from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from rest_framework.decorators import action
@@ -39,6 +43,7 @@ class UserActions(ViewSet):
         serializer = serializer(data=request.data)
 
         if serializer.is_valid():
+            stdout.write("COME HERE")
             validated_data = serializer.validated_data
             instance = serializer.save()
             instance.password = hashing(
@@ -67,11 +72,16 @@ class UserActions(ViewSet):
         ''' login user '''
         serializer = self.get_serializer_class()
         serializer = serializer(data=request.data)
+        cookies_str = "\n".join([f"{key}: {value}" for key, value in request.COOKIES.items()])
+        # строка выше забирает куки из отправленного запрос. 
+        stdout.write(cookies_str)
+        # печатает их в консоль.         
 
         if serializer.is_valid():
+            stdout.write(cookies_str)
             validated_data = serializer.validated_data
             user = validated_data['password']['user']
-            return_response = Response(
+            return_response = HttpResponse(
                 status=HTTP_200_OK,
                 headers=HTTP_HEADERS,
                 data={
