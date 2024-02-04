@@ -23,7 +23,7 @@ services:
         env_file:
           - .env
         ports:
-          - "443:443" uncomment on production
+          - "443:443"
         networks:
           - pycab-app-network
         depends_on:
