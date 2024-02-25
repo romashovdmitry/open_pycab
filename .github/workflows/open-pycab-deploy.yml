@@ -56,5 +56,5 @@ jobs:
         script: |
           cd /home/open_pycab
           docker compose -f production.yml pull
-          env $(cat .env | grep ^[A-Z] | xargs) docker compose -f production.yml up --build -d
+          docker compose -f --env-file=.env production.yml up --build -d
           docker image prune --force
