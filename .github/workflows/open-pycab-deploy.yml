@@ -19,7 +19,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and push Docker image
+    - name: Build and push Django Docker image
       uses: docker/build-push-action@v5
       with:
         context: .
@@ -27,7 +27,7 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/image-django-wsgi
       
-    - name: Build and push Docker image
+    - name: Build and push Nginx Docker image
       uses: docker/build-push-action@v5
       with:
         context: .
@@ -35,7 +35,7 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/image-pycab-nginx
 
-    - name: Copy Docker-yml file
+    - name: Copy Docker Compose yml file and Dockerfiles
       uses: appleboy/scp-action@v0.1.4
       with:
         host: ${{ secrets.OPEN_PYCAB_HOST }}
@@ -46,7 +46,7 @@ jobs:
         target: /home/open_pycab
 
 
-    - name: Download Docker-yml file
+    - name: Download Docker-yml file and run containers
       uses: appleboy/ssh-action@v1.0.0
       with:
         host: ${{ secrets.OPEN_PYCAB_HOST }}
@@ -56,5 +56,5 @@ jobs:
         script: |
           cd /home/open_pycab
           docker compose -f production.yml pull
-          docker compose -f --env-file=.env production.yml up --build -d
+          docker compose --env-file=.env -f production.yml up --build -d
           docker image prune --force
